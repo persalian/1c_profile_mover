@@ -50,14 +50,16 @@ if($username -eq "CURRENTUSER"){
     #exit -1
 }
 
+$profile_path = (Get-WmiObject win32_userprofile | Where-Object SID -eq ((Get-WmiObject win32_useraccount | Where-Object name -eq "andrey_2" ).sid) ).LocalPath
 
-$src_local = 'c:\users\' + $username + '\AppData\Local\1C\1cv8'
-$src_roaming = 'c:\users\' + $username + '\AppData\Roaming\1C\1cv8'
+
+$src_local = $profile_path + '\AppData\Local\1C\1cv8'
+$src_roaming = $profile_path + '\AppData\Roaming\1C\1cv8'
 
 $dst_local = $dist + '\' + $username + '\AppData\Local\1C\1cv8'
 $dst_roaming = $dist + '\' + $username + '\AppData\Roaming\1C\1cv8'
 
-$old_profile = 'c:\users\' + $username
+$old_profile = $profile_path
 $new_profile = $dist + '\' + $username
 
 <# 
